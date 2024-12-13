@@ -4,52 +4,50 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tymexmobileapp.R
-import com.example.tymexmobileapp.data.api.GithubApiService
-import com.example.tymexmobileapp.data.model.User
+import com.example.tymexmobileapp.data.api.RetrofitInstance
 import com.example.tymexmobileapp.ui.adapter.UserAdapter
 import com.example.tymexmobileapp.ui.viewmodel.UserViewModel
-import com.example.tymexmobileapp.ui.viewmodel.UserViewModelFactory
 import com.example.tymexmobileapp.data.repository.UserRepository
+import com.example.tymexmobileapp.ui.viewmodel.UserViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
-    // Use the factory to create ViewModel
-    private val userViewModel: UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository(GithubApiService))  // Pass repository or any required parameter here
-    }
-
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var userViewModel: UserViewModel
     private lateinit var userAdapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById(R.id.recyclerView_Main)
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerView_Main)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        userAdapter = UserAdapter { user -> onUserClicked(user) }
+
+        userAdapter = UserAdapter(emptyList()) { user ->
+            // Handle click event here (e.g., navigate to user detail page)
+        }
+
         recyclerView.adapter = userAdapter
 
-        userViewModel.users.observe(this, Observer { users ->
-            userAdapter.submitList(users)
-        })
+        // Create ViewModelFactory and get the ViewModel
+        val userRepository = UserRepository(RetrofitInstance.api)
+        val viewModelFactory = UserViewModelFactory(userRepository)
+        userViewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
 
-        userViewModel.fetchUsers()
-
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    userViewModel.fetchUsers()  // Fetch next 20 users when reaching the bottom
-                }
+        userViewModel.users.observe(this, Observer {
+            userAdapter = UserAdapter(it) { user ->
+                // Handle click event here
             }
+            recyclerView.adapter = userAdapter
         })
-    }
 
-    private fun onUserClicked(user: User) {
-        // Handle user click (e.g., navigate to user detail page)
+        userViewModel.loadUsers()
     }
 }
+
+
+
+

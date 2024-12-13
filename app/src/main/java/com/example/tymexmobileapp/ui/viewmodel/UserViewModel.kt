@@ -8,18 +8,19 @@ import com.example.tymexmobileapp.data.model.User
 import com.example.tymexmobileapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
+class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _users = MutableLiveData<List<User>>()
     val users: LiveData<List<User>> get() = _users
 
-    private var since = 100
+    private var currentPage = 1
 
-    fun fetchUsers() {
+    fun loadUsers() {
         viewModelScope.launch {
-            val userList = userRepository.getUsers(since = since)
-            _users.postValue(userList)
-            since += 20 //  fetch next batch of 20 users
+            val userList = repository.getUsers(currentPage)
+            _users.value = userList
+            currentPage++  // Increment page for next load
         }
     }
 }
+

@@ -11,11 +11,10 @@ object RetrofitInstance {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient.Builder().build())
             .build()
     }
 
-    val apiService: GithubApiService by lazy {
-        retrofit.create(GithubApiService::class.java)
+    val api: GitHubApiService by lazy {
+        retrofit.create(GitHubApiService::class.java)
     }
 }
