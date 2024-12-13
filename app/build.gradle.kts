@@ -7,6 +7,10 @@ android {
     namespace = "com.example.tymexmobileapp"
     compileSdk = 35
 
+    viewBinding{
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.example.tymexmobileapp"
         minSdk = 23
@@ -58,5 +62,9 @@ dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation( "com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation ("androidx.cardview:cardview:1.0.0")
+
 
 }
