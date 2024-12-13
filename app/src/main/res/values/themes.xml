@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TymeXMobileApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorLink">@color/blue</item>
+    </style>
+
+    <style name="Theme.TymeXMobileApp" parent="Base.Theme.TymeXMobileApp" />
+</resources>
