@@ -14,25 +14,16 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     val users: LiveData<List<User>> get() = _users
 
     private var currentPage = 1
-    private val userList = mutableListOf<User>()
 
-    // Load users initially or load more users
-    fun loadUsers(isLoadMore: Boolean = false) {
-        if (isLoadMore) {
-            currentPage++
-        }
-
+    fun loadUsers() {
         viewModelScope.launch {
-            val newUsers = repository.getUsers(currentPage)
-            if (isLoadMore) {
-                userList.addAll(newUsers)
-            } else {
-                userList.clear()
-                userList.addAll(newUsers)
-            }
+            val userList = repository.getUsers(currentPage) // Ensure this returns 20 users per fetch
             _users.value = userList
+            currentPage++  // Increment page for next load
         }
     }
 }
+
+
 
 
