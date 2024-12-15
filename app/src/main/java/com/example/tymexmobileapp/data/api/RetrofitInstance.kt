@@ -9,7 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object RetrofitInstance {
     private const val BASE_URL = "https://api.github.com/"
-    private const val ACCESS_TOKEN = "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"
+//    private const val ACCESS_TOKEN = "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"
 
     private val okHttpClient = OkHttpClient.Builder().apply {
         addInterceptor(HttpLoggingInterceptor().apply {
@@ -17,7 +17,7 @@ object RetrofitInstance {
         })
         addInterceptor { chain ->
             val request: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "token $ACCESS_TOKEN")
+//                .addHeader("Authorization", "token $ACCESS_TOKEN")
                 .build()
             chain.proceed(request)
         }
