@@ -9,16 +9,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object RetrofitInstance {
     private const val BASE_URL = "https://api.github.com/"
-    private const val ACCESS_TOKEN = "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" // Thay thế bằng token của bạn
+    private const val ACCESS_TOKEN = "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"
 
-    // Tạo OkHttpClient với Interceptor để thêm Authorization Header vào mỗi yêu cầu
     private val okHttpClient = OkHttpClient.Builder().apply {
         addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
         addInterceptor { chain ->
             val request: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "token $ACCESS_TOKEN") // Thêm token vào header
+                .addHeader("Authorization", "token $ACCESS_TOKEN")
                 .build()
             chain.proceed(request)
         }
@@ -28,7 +27,7 @@ object RetrofitInstance {
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(okHttpClient) // Thêm OkHttpClient vào Retrofit
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

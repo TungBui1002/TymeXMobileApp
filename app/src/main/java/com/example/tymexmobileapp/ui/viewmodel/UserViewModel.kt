@@ -10,20 +10,42 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
-    private val _users = MutableLiveData<List<User>>()
-    val users: LiveData<List<User>> get() = _users
+    private val _users = MutableLiveData<MutableList<User>>()
+    val users: LiveData<MutableList<User>> get() = _users
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
 
     private var currentPage = 1
 
-    fun loadUsers() {
+    init {
+        _users.value = mutableListOf()
+    }
+
+    fun loadUsers(isInitialLoad: Boolean = false) {
+        if (isInitialLoad) _loading.value = true
+
         viewModelScope.launch {
-            val userList = repository.getUsers(currentPage) // Ensure this returns 20 users per fetch
-            _users.value = userList
-            currentPage++  // Increment page for next load
+            try {
+                val newUsers = repository.getUsers(page = currentPage, )
+                _users.value?.let {
+                    if (isInitialLoad) {
+                        it.clear()
+                    }
+                    it.addAll(newUsers)
+                    _users.value = it
+                }
+                currentPage++
+            } catch (e: Exception) {
+                _error.value = e.message
+            } finally {
+                _loading.value = false
+            }
         }
     }
 }
-
-
 
 

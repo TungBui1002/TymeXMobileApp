@@ -25,9 +25,15 @@ class UserAdapter(private val users: MutableList<User>, private val clickListene
 
     // Update the adapter with new data
     fun updateData(newUsers: List<User>) {
-        // Add new users to the existing list
+        users.clear()  // Clear old data before adding new data
         users.addAll(newUsers)
-        notifyItemRangeInserted(users.size - newUsers.size, newUsers.size)
+        notifyDataSetChanged()
+    }
+
+    fun addData(newUsers: List<User>) {
+        val start = users.size
+        users.addAll(newUsers)
+        notifyItemRangeInserted(start, newUsers.size)
     }
 
     inner class UserViewHolder(private val binding: InfoMainItemBinding) :
@@ -39,8 +45,13 @@ class UserAdapter(private val users: MutableList<User>, private val clickListene
             Glide.with(binding.avatar.context)
                 .load(user.avatar_url)
                 .into(binding.avatar)
+            binding.root.setOnClickListener{
+                clickListener(user)
+            }
         }
     }
 }
+
+
 
 
