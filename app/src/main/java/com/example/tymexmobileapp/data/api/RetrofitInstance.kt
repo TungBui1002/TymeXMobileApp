@@ -21,11 +21,23 @@ object RetrofitInstance {
         }
     }.build()
 
-    // Tạo Retrofit với OkHttpClient
+    private fun getLoggingInterceptor(): HttpLoggingInterceptor {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return loggingInterceptor
+    }
+
+    private fun getOkhttp(): OkHttpClient{
+        val client = OkHttpClient.Builder()
+            .addInterceptor(getLoggingInterceptor())
+        return client.build()
+    }
+
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
+            .client(getOkhttp())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
