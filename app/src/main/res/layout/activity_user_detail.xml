@@ -180,6 +180,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/tv_follower"
                 android:text="100+"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -223,6 +224,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/tv_following"
                 android:text="10+"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -265,6 +267,15 @@
         android:layout_marginStart="15dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_blog"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

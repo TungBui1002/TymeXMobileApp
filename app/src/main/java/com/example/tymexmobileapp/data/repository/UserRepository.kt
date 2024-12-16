@@ -8,8 +8,12 @@ import com.google.gson.Gson
 
 class UserRepository(private val api: GitHubApiService, private val context: Context) {
 
-    suspend fun getUsers(page: Int): List<User> {
-        return api.getUsers(20, page * 20)
+    suspend fun getUsers(since: Int): List<User> {
+        return api.getUsers(20, since)
+    }
+
+    suspend fun getUserDetails(username: String):User {
+        return api.getUserDetails(username)
     }
 }
 

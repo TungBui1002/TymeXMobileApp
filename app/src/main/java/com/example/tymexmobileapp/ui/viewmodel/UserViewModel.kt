@@ -1,6 +1,7 @@
 package com.example.tymexmobileapp.ui.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.example.tymexmobileapp.data.repository.UserRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 class UserViewModel(private val repository: UserRepository, private val context: Context) : ViewModel() {
 
@@ -22,31 +24,34 @@ class UserViewModel(private val repository: UserRepository, private val context:
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
-    private var currentPage = 1
+    private var currentSince = 0
 
     init {
         _users.value = mutableListOf()
     }
 
     fun loadUsers(isInitialLoad: Boolean = false) {
-        if (isInitialLoad) _loading.value = true
+        if (isInitialLoad){
+            currentSince = 0
+            _loading.value = true
+        }
 
         viewModelScope.launch {
             try {
-                val newUsers = repository.getUsers(page = currentPage)
+                val newUsers = repository.getUsers(since = currentSince)
                 _users.value?.let {
                     if (isInitialLoad) {
                         it.clear()
                     }
                     it.addAll(newUsers)
-                    _users.value = it
+                    _users.postValue(it)
                 }
+                currentSince += 20
 
                 saveUsersToPreferences(_users.value!!)
 
-                currentPage++
             } catch (e: Exception) {
-                _error.value = e.message
+                _error.value = "Failed to load users: ${e.message}"
             } finally {
                 _loading.value = false
             }
@@ -70,5 +75,25 @@ class UserViewModel(private val repository: UserRepository, private val context:
         val json = Gson().toJson(users)
         editor.putString("users_list", json)
         editor.apply()
+        Log.e("kkk","save data ${users.size}")
     }
+
+    //user details
+    private val _userDetail = MutableLiveData<User>()
+    val userDetail: LiveData<User> get() = _userDetail
+
+    fun loadUserDetails(username: String){
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                val user = repository.getUserDetails(username)
+                _userDetail.value = user
+            } catch (e: Exception){
+                _error.value = "failed to load user details: ${e.message}"
+            }finally {
+                _loading.value = false
+            }
+        }
+    }
+
 }

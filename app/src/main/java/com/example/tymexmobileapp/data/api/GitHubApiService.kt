@@ -3,6 +3,7 @@ package com.example.tymexmobileapp.data.api
 import com.example.tymexmobileapp.data.model.User
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GitHubApiService {
@@ -11,4 +12,9 @@ interface GitHubApiService {
         @Query("per_page") perPage: Int,
         @Query("since") since: Int
     ): List<User>
+
+    @GET("users/{username}")
+    suspend fun getUserDetails(
+        @Path("username") username : String
+    ): User
 }

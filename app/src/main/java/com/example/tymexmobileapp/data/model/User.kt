@@ -18,6 +18,16 @@ data class User(
     val events_url: String,
     val received_events_url: String,
     val type: String,
-    val site_admin: Boolean
+    val site_admin: Boolean,
+
+    //user details
+    val name: String?,
+    val blog: String?,
+    val location: String?,
+    val email: String?,
+    val followers: Int,
+    val following: Int,
+    val created_at: String,
+    val updated_at: String
 )
 

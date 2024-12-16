@@ -31,16 +31,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userAdapter = UserAdapter(mutableListOf()) { user ->
+        userAdapter = UserAdapter(mutableListOf(), this)
+        binding.recyclerViewMain.adapter = userAdapter
 
-        }
 
         binding.recyclerViewMain.apply {
             adapter = userAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            binding.recyclerViewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -49,10 +49,11 @@ class MainActivity : AppCompatActivity() {
                     val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
 
                     if (!viewModel.loading.value!! && visibleItemCount + pastVisibleItems >= totalItemCount) {
-                        viewModel.loadUsers()
+                        viewModel.loadUsers() // Tải thêm 20 người dùng
                     }
                 }
             })
+
         }
 
         viewModel.loadUsersFromPreferences()
