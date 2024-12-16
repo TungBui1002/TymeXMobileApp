@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TymeX Mobile App</string>
     <string name="title_main">Github Users</string>
+    <string name="header_userdetail">User Details</string>
     <string name="name_user">David</string>
+    <string name="located_user">Vietnam</string>
     <string name="link_user">https://www.linkedin.com/</string>
 </resources>

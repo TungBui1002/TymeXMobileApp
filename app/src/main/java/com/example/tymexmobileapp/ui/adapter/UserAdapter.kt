@@ -23,9 +23,8 @@ class UserAdapter(private val users: MutableList<User>, private val clickListene
 
     override fun getItemCount(): Int = users.size
 
-    // Update the adapter with new data
     fun updateData(newUsers: List<User>) {
-        users.clear()  // Clear old data before adding new data
+        users.clear()
         users.addAll(newUsers)
         notifyDataSetChanged()
     }

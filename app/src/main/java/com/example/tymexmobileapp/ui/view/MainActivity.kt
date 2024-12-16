@@ -21,7 +21,7 @@ import com.example.tymexmobileapp.ui.viewmodel.UserViewModelFactory
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: UserViewModel by viewModels {
-        UserViewModelFactory(UserRepository(RetrofitInstance.api, this))
+        UserViewModelFactory(UserRepository(RetrofitInstance.api, this),this)
     }
 
     private lateinit var userAdapter: UserAdapter
@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
+
+        viewModel.loadUsersFromPreferences()
 
         viewModel.users.observe(this, { users ->
             users?.let {

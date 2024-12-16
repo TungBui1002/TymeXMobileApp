@@ -8,9 +8,6 @@ import com.google.gson.Gson
 
 class UserRepository(private val api: GitHubApiService, private val context: Context) {
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE)
-    private val gson = Gson()
-
     suspend fun getUsers(page: Int): List<User> {
         return api.getUsers(20, page * 20)
     }

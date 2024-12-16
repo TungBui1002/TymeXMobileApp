@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Circle -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M12,2A5,5 0 0,1 17,7A5,5 0 0,1 12,12A5,5 0 0,1 7,7A5,5 0 0,1 12,2Z" />
+    <!-- Ribbon with smoother bottom -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M10,14L9,21L12,19L15,21L14,14H10Z" />
+</vector>
