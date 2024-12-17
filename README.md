@@ -1,44 +1,45 @@
-# TymeX Mobile App
+# TymeX's Mobile App
 
 ## Overview
 
-**TymeX** là một ứng dụng **dành cho quản trị viên** để xem danh sách người dùng từ **GitHub API**. Ứng dụng hỗ trợ các tính năng chính sau:
+**TymeX's Mobile App** is an **admin application** for viewing user lists from **GitHub API**. The application supports the following main features:
 
-- **Tải danh sách người dùng** theo từng trang (**20 mục mỗi lần**).
-- **Lưu dữ liệu người dùng** bằng **SharedPreferences** để hiển thị ngay lập tức khi mở lại ứng dụng.
-- **Xem chi tiết người dùng**, bao gồm:
+- **Load user list** page by page (**20 items per**).
+- **Save user data** with **SharedPreferences** to display immediately when reopening the app.
+- **View user details**, including:
   - Avatar
-  - Tên
-  - Vị trí
+  - Name
+  - Location
   - Blog
-  - Số lượng followers và following.
+  - Number of followers and following.
 
-### Công nghệ sử dụng
+### Technology used
 
-Ứng dụng được phát triển bằng **Kotlin** và sử dụng các công nghệ sau:
+The application is developed in **Kotlin** and uses the following technologies:
 
-- **MVVM Architecture**: Kiến trúc giúp quản lý luồng dữ liệu rõ ràng và dễ bảo trì.
-- **Retrofit**: Thư viện kết nối với REST API.
-- **Coroutines**: Hỗ trợ xử lý các tác vụ bất đồng bộ.
-- **Glide**: Thư viện tải và hiển thị hình ảnh.
-- **Unit Testing**: Đảm bảo chất lượng code với **JUnit** và **mockk**.
+- **MVVM Architecture**: Architecture that helps manage data flow clearly and easily maintained.
+- **Retrofit**: Library that connects to REST API.
+- **Coroutines**: Support for handling asynchronous tasks.
+- **Glide**: Library for loading and displaying images.
+- **Unit Testing**: Ensure code quality with **JUnit** and **mockk**.
 
 ---
 
 ## Features
 
-1. **Hiển thị danh sách người dùng**
-   - Người dùng có thể cuộn xuống để tải thêm dữ liệu (**Pagination**).
+1. **Display user list**
+- User can scroll down to load more data (**Pagination**).
 
-2. **Lưu dữ liệu vào bộ nhớ**
-   - Sử dụng **SharedPreferences** để lưu trữ dữ liệu cũ và hiển thị ngay cả khi không có mạng.
+2. **Save data to memory**
+- Use **SharedPreferences** to store old data and display even when there is no network.
 
-3. **Xem chi tiết người dùng**
-   - Thông tin chi tiết được hiển thị khi click vào một user trong danh sách:
-     - Avatar, Tên, Vị trí, Blog, Số lượng followers và following.
+3. **View user details**
+- Details are displayed when clicking on a user in the list:
 
-4. **Kiểm thử đơn vị (Unit Testing)**
-   - Sử dụng **JUnit** và **mockk** để kiểm thử các chức năng của **UserRepository**.
+- Avatar, Name, Location, Blog, Number of followers and following.
+
+4. **Unit Testing**
+- Use **JUnit** and **mockk** to test the functions of **UserRepository**.
 
 ---
 
@@ -46,13 +47,38 @@
 
 ### 1. Prerequisites
 
-- **Android Studio** phiên bản mới nhất.
-- **JDK 11** hoặc cao hơn.
-- **Gradle** (được cấu hình tự động trong Android Studio).
+- **Android Studio** latest version.
+
+- **JDK 11** or higher.
+
+- **Gradle** (automatically configured in Android Studio).
 
 ### 2. Clone Project
 
-Clone dự án về máy tính của bạn bằng lệnh sau:
+Clone the project to your computer using the following command:
 
 ```bash
 git clone https://github.com/yourusername/TymeX.git
+
+### 3. Open Project in Android Studio
+1. Open **Android Studio**.
+2. Select **Open an existing project** and select the project directory.
+
+---
+
+### 4. Build and Run
+- Select **Build > Rebuild Project** to ensure all dependencies are downloaded.
+
+- Run the app on a real device or emulator. (I used Pixel 7 Pro API 35)
+
+---
+
+### Challenges and Notes
+
+#### 1. Pagination:
+- The `since` variable is managed by increasing by 20 for each new data fetch.
+
+#### 2. API Rate Limit:
+- Since you use **GitHub API**, you need to pay attention to limit the number of API calls per hour.
+
+*(**Personal Access Token** is recommended if needed).*
