@@ -121,8 +121,9 @@ dependencies {
 ---
 
 ### Demo Video (Optional)
+[https://youtu.be/8KcAx5BA1NU](https://youtu.be/8KcAx5BA1NU)
 
-[https://youtu.be/h-JZBshPFfE](https://youtu.be/h-JZBshPFfE)
+[![Demo on YouTube](https://img.youtube.com/vi/8KcAx5BA1NU/0.jpg)](https://youtu.be/8KcAx5BA1NU)
 
 ---
 
