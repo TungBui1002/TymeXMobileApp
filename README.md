@@ -59,8 +59,9 @@ Clone the project to your computer using the following command:
 
 ```bash
 git clone https://github.com/yourusername/TymeX.git
+```
 
-### 3. Open Project in Android Studio
+### 3. Open Project in Android Studio 
 1. Open **Android Studio**.
 2. Select **Open an existing project** and select the project directory.
 
@@ -82,3 +83,52 @@ git clone https://github.com/yourusername/TymeX.git
 - Since you use **GitHub API**, you need to pay attention to limit the number of API calls per hour.
 
 *(**Personal Access Token** is recommended if needed).*
+
+### 3. Unit Testing:
+- Use **mockk** to mock data from **UserRepository**.
+
+### 4. SharedPreferences:
+- Data is stored locally for quick re-display when the application is opened next time.
+
+---
+
+## Dependencies
+
+The project uses the following libraries:
+
+- **Retrofit**: Connect to API.
+
+- **Glide**: Load and display images.
+
+- **Coroutines**: Handle asynchronous tasks.
+
+- **mockk**: Mock library for Unit Test.
+
+- **JUnit**: Testing framework.
+
+```gradle
+dependencies {
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.github.bumptech.glide:glide:4.16.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
+    testImplementation "io.mockk:mockk:1.13.3"
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
+}
+```
+---
+
+### Demo Video (Optional)
+
+[https://youtu.be/h-JZBshPFfE](https://youtu.be/h-JZBshPFfE)
+
+---
+
+### Contact
+
+If you have any questions, please contact:
+
+- **Email**: tungb100203@gmail.com
+- **GitHub**: [github.com/TungBui1002](https://github.com/TungBui1002)
