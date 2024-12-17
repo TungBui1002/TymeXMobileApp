@@ -23,12 +23,12 @@ o Glide for loading images.
 o Unit Testing with JUnit and mockk.
 
 Features
-1. Display user list:
-  o Scroll down to load more data (pagination).
-2. Save data to memory:
-  o SharedPreferences is used to display old data when offline.
-3. View user details:
-  o Show detailed information when clicking on a user in the list.
-4. Unit Testing:
-  o Ensure code quality with JUnit and mockk.
+
+1. Display user list: Scroll down to load more data (pagination).
+   
+2. Save data to memory: SharedPreferences is used to display old data when offline.
+   
+3. View user details: Show detailed information when clicking on a user in the list.
+   
+4. Unit Testing: Ensure code quality with JUnit and mockk.
 
