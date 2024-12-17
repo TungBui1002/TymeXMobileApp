@@ -1,8 +1,8 @@
-TymeX Mobile App
+TymeX's Mobile App
 
 Overview
 
-TymeX is an admin application to view a list of users from GitHub API. The application supports:
+TymeX's Mobile App is an admin application to view a list of users from GitHub API. The application supports:
 
 Loading a list of users page by page (20 items at a time).
 
