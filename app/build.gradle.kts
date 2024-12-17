@@ -75,4 +75,19 @@ dependencies {
 
     // Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.0")
+
+    // JUnit cho Unit Testing
+    testImplementation ("junit:junit:4.13.2")
+
+    // MockK để giả lập đối tượng
+    testImplementation ("io.mockk:mockk:1.12.0")
+
+    // Coroutine Testing cho ViewModel
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+
+    // AndroidX Test Core
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+
 }

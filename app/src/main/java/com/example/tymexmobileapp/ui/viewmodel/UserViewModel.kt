@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
-class UserViewModel(private val repository: UserRepository, private val context: Context) : ViewModel() {
+class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _users = MutableLiveData<MutableList<User>>()
     val users: LiveData<MutableList<User>> get() = _users
@@ -31,7 +31,7 @@ class UserViewModel(private val repository: UserRepository, private val context:
     }
 
     fun loadUsers(isInitialLoad: Boolean = false) {
-        if (isInitialLoad){
+        if (isInitialLoad) {
             currentSince = 0
             _loading.value = true
         }
@@ -47,9 +47,7 @@ class UserViewModel(private val repository: UserRepository, private val context:
                     _users.postValue(it)
                 }
                 currentSince += 20
-
-                saveUsersToPreferences(_users.value!!)
-
+                repository.saveUsersToPreferences(_users.value!!) // Gọi hàm từ repository
             } catch (e: Exception) {
                 _error.value = "Failed to load users: ${e.message}"
             } finally {
@@ -58,42 +56,26 @@ class UserViewModel(private val repository: UserRepository, private val context:
         }
     }
 
-
     fun loadUsersFromPreferences() {
-        val sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val json = sharedPreferences.getString("users_list", null)
-        if (json != null) {
-            val type = object : TypeToken<List<User>>() {}.type
-            val users = Gson().fromJson<List<User>>(json, type)
-            _users.value = users.toMutableList()
-        }
+        val users = repository.loadUsersFromPreferences()
+        _users.value = users.toMutableList()
     }
 
-    fun saveUsersToPreferences(users: List<User>) {
-        val sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val json = Gson().toJson(users)
-        editor.putString("users_list", json)
-        editor.apply()
-        Log.e("kkk","save data ${users.size}")
-    }
-
-    //user details
     private val _userDetail = MutableLiveData<User>()
     val userDetail: LiveData<User> get() = _userDetail
 
-    fun loadUserDetails(username: String){
+    fun loadUserDetails(username: String) {
         viewModelScope.launch {
             _loading.value = true
             try {
                 val user = repository.getUserDetails(username)
                 _userDetail.value = user
-            } catch (e: Exception){
-                _error.value = "failed to load user details: ${e.message}"
-            }finally {
+            } catch (e: Exception) {
+                _error.value = "Failed to load user details: ${e.message}"
+            } finally {
                 _loading.value = false
             }
         }
     }
-
 }
+

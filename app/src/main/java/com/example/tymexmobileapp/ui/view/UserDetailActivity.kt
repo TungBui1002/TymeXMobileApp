@@ -31,7 +31,6 @@ class UserDetailActivity : AppCompatActivity() {
 
         // intent load name and avatar
         val username = intent.getStringExtra("username") ?: return
-        val avatarUrl = intent.getStringExtra("avatarUrl") ?: ""
 
         viewModel.loadUserDetails(username)
 

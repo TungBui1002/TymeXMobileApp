@@ -9,7 +9,7 @@ import com.example.tymexmobileapp.data.repository.UserRepository
 class UserViewModelFactory(private val repository: UserRepository, private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            return UserViewModel(repository,context) as T
+            return UserViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
