@@ -1,34 +1,58 @@
-TymeX's Mobile App
+# TymeX Mobile App
 
-Overview
+## Overview
 
-o TymeX's Mobile App is an admin application to view a list of users from GitHub API. The application supports:
+**TymeX** là một ứng dụng **dành cho quản trị viên** để xem danh sách người dùng từ **GitHub API**. Ứng dụng hỗ trợ các tính năng chính sau:
 
-o Loading a list of users page by page (20 items at a time).
+- **Tải danh sách người dùng** theo từng trang (**20 mục mỗi lần**).
+- **Lưu dữ liệu người dùng** bằng **SharedPreferences** để hiển thị ngay lập tức khi mở lại ứng dụng.
+- **Xem chi tiết người dùng**, bao gồm:
+  - Avatar
+  - Tên
+  - Vị trí
+  - Blog
+  - Số lượng followers và following.
 
-o Saving user data using SharedPreferences to display immediately when reopening the application.
+### Công nghệ sử dụng
 
-o Viewing user details including avatar, name, location, blog, number of followers and following.
+Ứng dụng được phát triển bằng **Kotlin** và sử dụng các công nghệ sau:
 
-The application is developed in Kotlin and uses the following technologies:
+- **MVVM Architecture**: Kiến trúc giúp quản lý luồng dữ liệu rõ ràng và dễ bảo trì.
+- **Retrofit**: Thư viện kết nối với REST API.
+- **Coroutines**: Hỗ trợ xử lý các tác vụ bất đồng bộ.
+- **Glide**: Thư viện tải và hiển thị hình ảnh.
+- **Unit Testing**: Đảm bảo chất lượng code với **JUnit** và **mockk**.
 
-o MVVM Architecture.
+---
 
-o Retrofit for REST API.
+## Features
 
-o Coroutines for asynchronous processing.
+1. **Hiển thị danh sách người dùng**
+   - Người dùng có thể cuộn xuống để tải thêm dữ liệu (**Pagination**).
 
-o Glide for loading images.
+2. **Lưu dữ liệu vào bộ nhớ**
+   - Sử dụng **SharedPreferences** để lưu trữ dữ liệu cũ và hiển thị ngay cả khi không có mạng.
 
-o Unit Testing with JUnit and mockk.
+3. **Xem chi tiết người dùng**
+   - Thông tin chi tiết được hiển thị khi click vào một user trong danh sách:
+     - Avatar, Tên, Vị trí, Blog, Số lượng followers và following.
 
-Features
+4. **Kiểm thử đơn vị (Unit Testing)**
+   - Sử dụng **JUnit** và **mockk** để kiểm thử các chức năng của **UserRepository**.
 
-1. Display user list: Scroll down to load more data (pagination).
-   
-2. Save data to memory: SharedPreferences is used to display old data when offline.
-   
-3. View user details: Show detailed information when clicking on a user in the list.
-   
-4. Unit Testing: Ensure code quality with JUnit and mockk.
+---
 
+## Steps to Build and Run
+
+### 1. Prerequisites
+
+- **Android Studio** phiên bản mới nhất.
+- **JDK 11** hoặc cao hơn.
+- **Gradle** (được cấu hình tự động trong Android Studio).
+
+### 2. Clone Project
+
+Clone dự án về máy tính của bạn bằng lệnh sau:
+
+```bash
+git clone https://github.com/yourusername/TymeX.git
